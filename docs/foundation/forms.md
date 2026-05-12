@@ -79,3 +79,124 @@ Angular cung cấp 2 cách chính để xử lý Form: **Template-driven Forms**
   </p>
 </form>
 ```
+
+---
+
+### Q6. What are Reactive Forms?
+
+**Trả lời:**
+❖ **Reactive Forms** là các biểu mẫu Angular mà cấu trúc form và logic được định nghĩa trực tiếp trong Component class (file `.ts`) bằng cách sử dụng các class như `FormControl` và `FormGroup`.
+
+---
+
+### Q7. How to implement Reactive Form using FormGroup and FormControl?
+
+**Trả lời:**
+❖ Trong Reactive Forms, **FormGroup** là một class được dùng để tạo ra một object FormGroup, nó chứa nhiều object FormControl bên trong một biểu mẫu duy nhất.
+❖ **FormControl** là một class được dùng để tạo ra một object đại diện và quản lý một trường nhập liệu (form field) duy nhất.
+
+**Ví dụ (.ts):**
+```typescript
+import { FormGroup, FormControl } from '@angular/forms';
+
+export class ReactiveForm {
+  usernameForm = new FormGroup({
+    username: new FormControl(''),
+  });
+}
+```
+
+---
+
+### Q8. How to use Validators class in Reactive Forms?
+
+**Trả lời:**
+❖ Trong Reactive Forms, **Validators** là một class được sử dụng để áp dụng các quy tắc xác thực (validation rules) lên `FormControl` hoặc `FormGroup`.
+
+**Ví dụ (.ts):**
+```typescript
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+
+export class ReactiveForm {
+  usernameForm = new FormGroup({
+    username: new FormControl('', [Validators.minLength(3)]),
+  });
+}
+```
+
+---
+
+### Q9. How to bind Reactive Form to HTML using formGroup and formControlName?
+
+**Trả lời:**
+❖ **formGroup** là một Angular directive được sử dụng để liên kết (bind) một object `FormGroup` với một thẻ form HTML.
+❖ **formControlName** là một Angular directive được sử dụng để liên kết một thẻ input với một `FormControl` cụ thể bên trong một `FormGroup` thông qua string key (tên trường).
+
+**Ví dụ:**
+```html
+<!-- .html -->
+<form [formGroup]="usernameForm">
+  <input type="text" formControlName="username" placeholder="Enter username">
+  <p *ngIf="usernameForm.get('username')?.invalid && usernameForm.get('username')?.touched" style="color: red;">
+    Username must be at least 3 characters
+  </p>
+</form>
+```
+
+```typescript
+// .ts
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+
+export class ReactiveForm {
+  usernameForm = new FormGroup({
+    username: new FormControl('', [Validators.minLength(3)]),
+  });
+}
+```
+
+---
+
+### Q10. How to simplify FormControl access using a getter in Reactive Forms?
+
+**Trả lời:**
+❖ Trong Reactive Forms, một **getter** thường được sử dụng để dễ dàng truy cập vào `FormControl` từ `FormGroup` ngay trong template (tránh việc phải gọi `.get('key')` liên tục).
+
+**Ví dụ:**
+```html
+<!-- .html -->
+<form [formGroup]="usernameForm">
+  <input type="text" formControlName="username" placeholder="Enter username">
+  <!-- Dùng getter 'username' ngắn gọn hơn thay vì usernameForm.get('username') -->
+  <p *ngIf="username?.invalid && username?.touched" style="color: red;">
+    Username must be at least 3 characters
+  </p>
+</form>
+```
+
+```typescript
+// .ts
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+
+export class ReactiveForm {
+  usernameForm = new FormGroup({
+    username: new FormControl('', [Validators.minLength(3)]),
+  });
+
+  get username() {
+    return this.usernameForm.get('username');
+  }
+}
+```
+
+---
+
+### Q11. When to use Template driven forms and when to use Reactive forms?
+
+**Trả lời:**
+❖ **Sử dụng Template Forms khi:**
+- Biểu mẫu nhỏ gọn, đơn giản và không có quá nhiều thay đổi động.
+- Ví dụ: Login form, Contact form, form phản hồi đơn giản hoặc đăng ký cơ bản (từ 2 đến 5 trường nhập liệu).
+
+❖ **Sử dụng Reactive Forms khi:**
+- Biểu mẫu lớn, phức tạp và có tính động cao.
+- Ví dụ: Các form đăng ký nhiều bước (multi-step signup forms), form có cấu trúc phức tạp, hoặc form có thể thêm/bớt các trường động (dynamic fields).
