@@ -20,7 +20,8 @@ export default defineConfig({
               { text: 'Giới thiệu', link: '/foundation/' },
               { text: 'Components & Templates', link: '/foundation/components' },
               { text: 'Directives & Pipes', link: '/foundation/directives' },
-              { text: 'Dependency Injection', link: '/foundation/dependency-injection' }
+              { text: 'Dependency Injection', link: '/foundation/dependency-injection' },
+              { text: 'Forms & NgModel', link: '/foundation/forms' }
             ]
           },
         ]
