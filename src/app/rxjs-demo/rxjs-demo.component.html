@@ -9,7 +9,13 @@
   <div style="margin-bottom: 20px;">
     <h3>Signals & Effect</h3>
     <p>Click count (Signal): <strong>{{ clickCount() }}</strong></p>
+    <p>Click count (Converted to Observable): <strong>{{ clickCount$ | async }}</strong></p>
     <button (click)="incrementClick()" style="padding: 5px 10px;">Increment</button>
+  </div>
+
+  <div style="margin-bottom: 20px;">
+    <h3>Observables to Signals</h3>
+    <p>Interval (Observable converted to Signal): <strong>{{ intervalSignal() }}</strong></p>
   </div>
 
   <div>

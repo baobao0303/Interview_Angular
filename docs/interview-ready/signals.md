@@ -67,6 +67,7 @@ export class MyComponent {
 ```
 
 > **Tóm lại:** Signal là một giá trị reactive, nó theo dõi xem ai đang "đọc" nó. Khi bạn gọi `set()` hoặc `update()`, Signal sẽ thông báo chính xác cho phần UI đó (ở đây là thẻ `<p>`) tự động render lại, bỏ qua hoàn toàn các nơi khác không liên quan.
+![Implements Signals](./images/Implement_Signals.png)
 
 ### Q3. Cách triển khai Component theo Change Detection truyền thống (không dùng Signals) như thế nào?
 
@@ -102,5 +103,60 @@ export class MyComponent {
 ```
 
 > **So sánh hiệu năng:** Trong cách tiếp cận này, mỗi khi bạn nhấn nút `Increment`, quá trình Change Detection sẽ diễn ra. Nó sẽ đi kiểm tra **rất nhiều bindings** trên toàn bộ component tree (kể cả những nơi không hề thay đổi) để đảm bảo dữ liệu được đồng bộ với UI. Điều này cồng kềnh và tốn kém hơn nhiều so với việc chỉ cập nhật đúng 1 chỗ như Signals.
+![Change detection without Signals](./images/Change_detection_without_Signals.png)
 
-![Implements Signals](./images/Implement_Signals.png)
+---
+
+### Q4. Signals và Observables (RxJS) khác nhau như thế nào? Khi nào dùng cái nào?
+
+**Trả lời:**
+❖ **Observables (RxJS)**: 
+- Là những luồng dữ liệu (Data Streams) phát ra theo thời gian.
+- **Rất tuyệt vời cho việc quản lý Event (sự kiện)** (như click liên tục, typeahead search) và xử lý dữ liệu bất đồng bộ phức tạp (HTTP Requests, WebSockets).
+
+❖ **Signals**:
+- Là một hộp chứa giá trị (Value Container) có khả năng thông báo khi giá trị thay đổi.
+- **Rất tuyệt vời cho việc quản lý Application State (Trạng thái ứng dụng)** (như đóng mở sidebar, giỏ hàng, user login status) vì nó luôn giữ một giá trị đồng bộ và render UI cực kỳ tối ưu.
+
+---
+
+### Q5. Làm thế nào để chuyển đổi từ Signal sang Observable?
+
+**Trả lời:**
+Angular cung cấp hàm `toObservable` từ `@angular/core/rxjs-interop` để chuyển đổi một Signal thành một Observable. Điều này rất hữu ích khi bạn có một State (Signal) và muốn sử dụng các toán tử mạnh mẽ của RxJS (như `switchMap`, `debounceTime`) lên nó.
+
+**Ví dụ:**
+```typescript
+import { Component, signal } from '@angular/core';
+import { toObservable } from '@angular/core/rxjs-interop';
+
+@Component({ ... })
+export class AppComponent {
+  clickCount = signal(0);
+  
+  // Chuyển Signal thành Observable
+  clickCount$ = toObservable(this.clickCount);
+}
+```
+
+---
+
+### Q6. Làm thế nào để chuyển đổi từ Observable sang Signal?
+
+**Trả lời:**
+Ngược lại, Angular cung cấp hàm `toSignal` để biến một luồng Observable thành một Signal. Điều này giúp lấy dữ liệu từ RxJS (như HTTP Response hoặc Interval) và hiển thị lên giao diện theo chuẩn Signals mới mà không cần dùng `async` pipe.
+
+**Ví dụ:**
+```typescript
+import { Component } from '@angular/core';
+import { interval } from 'rxjs';
+import { toSignal } from '@angular/core/rxjs-interop';
+
+@Component({ ... })
+export class AppComponent {
+  interval$ = interval(1000); // Phát ra 0, 1, 2... mỗi giây
+  
+  // Chuyển Observable thành Signal, yêu cầu cung cấp giá trị ban đầu (initialValue)
+  intervalSignal = toSignal(this.interval$, { initialValue: 0 });
+}
+```

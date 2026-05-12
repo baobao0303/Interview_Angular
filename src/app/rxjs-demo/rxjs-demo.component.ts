@@ -1,7 +1,8 @@
 import { Component, OnInit, DestroyRef, inject, signal, effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { interval } from 'rxjs';
+import { interval, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { MessagesService } from './messages.service';
 
 @Component({
@@ -19,9 +20,15 @@ export class RxjsDemoComponent implements OnInit {
   messages$ = this.messagesService.messages$;
   timerValue = 0;
 
+  // Interoperability between Signals and Observables
+  clickCount$ = toObservable(this.clickCount);
+  
+  interval$ = interval(1000);
+  intervalSignal = toSignal(this.interval$, { initialValue: 0 });
+
   constructor() {
     effect(() => {
-      console.log('Click count changed to:', this.clickCount());
+      console.log(`Clicked button ${this.clickCount()} times.`);
     });
   }
 
