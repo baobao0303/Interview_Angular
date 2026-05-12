@@ -52,3 +52,15 @@ Sự thay đổi lớn nhất chính là việc loại bỏ hoàn toàn `AppModu
 - `app.ts` kết hợp với `app.html / app.css` để render giao diện ra thẳng thẻ `<app-root>` (bỏ qua hoàn toàn bước trung gian là Module).
 
 ![Before vs After Angular 20](./images/before-vs-after-angular-20.png)
+
+### Q5. Cấu trúc thư mục (Folder Structure) và các file dự án thay đổi ra sao từ Angular 20?
+
+**Trả lời:**
+Kể từ Angular 20, cấu trúc thư mục của một dự án Angular mới được tối giản hóa rất nhiều so với trước đây nhờ việc áp dụng mặc định kiến trúc Standalone:
+
+1. **Bỏ hoàn toàn các file Modules:** Các file như `app.module.ts` và `app-routing.module.ts` đã bị xóa bỏ hoàn toàn. Các cấu hình ứng dụng, Routing và các Providers giờ đây được gộp chung vào quản lý tại file **`app.config.ts`**.
+2. **Hợp nhất file cấu hình TypeScript:** Các file `tsconfig.spec.json` và `tsconfig.app.json` trước đây nằm lẻ tẻ đã được hợp nhất và quản lý gọn gàng hơn bên trong một file duy nhất là **`tsconfig.json`**.
+3. **Thư mục Public thay thế Assets:** Thư mục `src/assets/` (nơi lưu trữ hình ảnh, tài nguyên tĩnh) được đẩy ra ngoài thư mục gốc của dự án và đổi tên thành thư mục **`public/`**.
+4. **Rút gọn tên file Component gốc:** Các file `app.component.ts`, `app.component.html`, `app.component.css` thường được Angular CLI rút gọn tên lại thành **`app.ts`**, **`app.html`**, **`app.css`**.
+
+![Folder Structure Angular 20](./images/folder-structure-angular-20.png)
