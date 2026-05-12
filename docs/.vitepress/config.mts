@@ -13,7 +13,8 @@ export default defineConfig({
       {
         text: 'Nội dung',
         items: [
-          { text: 'Trang chủ', link: '/' }
+          { text: 'Trang chủ', link: '/' },
+          { text: 'Câu hỏi & Giải đáp', link: '/questions/' }
         ]
       }
     ],
