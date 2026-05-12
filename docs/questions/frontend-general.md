@@ -1,11 +1,11 @@
 # 🚀 Tổng hợp Câu hỏi Phỏng vấn Frontend (Từ Fresher đến Senior)
 
-Dưới đây là danh sách tổng hợp các câu hỏi phỏng vấn Frontend thường gặp, được phân loại từ cấp độ cơ bản (Junior/Fresher) đến chuyên sâu (Senior). Các câu hỏi này bao quát HTML, CSS, JavaScript, Web Performance và System Design.
+Dưới đây là danh sách tổng hợp các câu hỏi phỏng vấn Frontend thường gặp, được phân loại từ cấp độ cơ bản (Junior/Fresher) đến chuyên sâu (Senior). Các câu hỏi này bao quát HTML, CSS, JavaScript, Web Performance và System Design, bao gồm cả những câu hỏi hóc búa hay gặp trên thực tế.
 
 ---
 
 ## 🟢 Cấp độ 1: Junior / Fresher (Cơ bản)
-*Ở cấp độ này, nhà tuyển dụng tập trung vào kiến thức nền tảng vững chắc về HTML, CSS và JavaScript.*
+*Ở cấp độ này, nhà tuyển dụng tập trung vào kiến thức nền tảng vững chắc về HTML, CSS và JavaScript Core.*
 
 ### Q1. Sự khác biệt giữa `id` và `class` trong HTML/CSS là gì?
 **Trả lời:**
@@ -14,102 +14,106 @@ Dưới đây là danh sách tổng hợp các câu hỏi phỏng vấn Frontend
 
 ### Q2. Box model trong CSS là gì?
 **Trả lời:**
-Box model mô tả cách các phần tử HTML được hiển thị dưới dạng các hộp hình chữ nhật, bao gồm 4 thành phần (từ trong ra ngoài):
-1. **Content**: Nội dung thực tế (văn bản, hình ảnh).
-2. **Padding**: Khoảng đệm giữa Content và Border.
-3. **Border**: Đường viền bao quanh phần tử.
-4. **Margin**: Khoảng cách bên ngoài, đẩy phần tử này cách xa phần tử khác.
+Box model mô tả cách các phần tử HTML được hiển thị dưới dạng các hộp hình chữ nhật, bao gồm 4 thành phần (từ trong ra ngoài): `Content` -> `Padding` -> `Border` -> `Margin`.
 
 ### Q3. Phân biệt `inline`, `inline-block`, và `block`?
 **Trả lời:**
-- **`inline`**: Chỉ chiếm không gian cần thiết, không ngắt dòng. Không thể set `width`/`height` (VD: `<span>`, `<a>`).
-- **`inline-block`**: Giống `inline` là không ngắt dòng, nhưng **có thể** set được `width`/`height`.
-- **`block`**: Luôn bắt đầu ở dòng mới, chiếm 100% chiều rộng của thẻ cha theo mặc định. Có thể set `width`/`height` (VD: `<div>`, `<p>`).
+- **`inline`**: Không ngắt dòng, không set được `width`/`height` (VD: `<span>`).
+- **`inline-block`**: Không ngắt dòng, **có thể** set được `width`/`height`.
+- **`block`**: Bắt đầu ở dòng mới, chiếm 100% width thẻ cha (VD: `<div>`).
 
 ### Q4. Sự khác biệt giữa `null` và `undefined` trong JavaScript?
 **Trả lời:**
-- **`undefined`**: Biến đã được khai báo nhưng chưa được gán giá trị (mặc định do hệ thống gán).
-- **`null`**: Là một giá trị cố tình được gán bởi lập trình viên để ám chỉ "không có giá trị nào" hoặc "không có đối tượng".
+- **`undefined`**: Biến đã được khai báo nhưng chưa được gán giá trị (JS tự động gán).
+- **`null`**: Là giá trị cố tình được gán bởi lập trình viên để ám chỉ "không có giá trị".
 
-### Q5. So sánh Cookie, sessionStorage và localStorage?
+### Q5. So sánh `==` và `===` trong JavaScript?
 **Trả lời:**
-- **Cookie**: Dung lượng nhỏ (~4KB), gửi kèm theo mỗi HTTP request. Thường dùng để lưu phiên đăng nhập (auth tokens).
-- **sessionStorage**: Lưu trữ dữ liệu tạm thời cho một tab/phiên làm việc. Dữ liệu mất khi đóng tab trình duyệt.
-- **localStorage**: Lưu trữ dữ liệu vĩnh viễn trên trình duyệt client cho đến khi bị xóa thủ công bằng code hoặc xóa lịch sử duyệt web. Dung lượng lớn (~5MB).
+- **`==`**: Toán tử so sánh bằng lỏng lẻo. Tự động ép kiểu (type coercion) hai vế về cùng một kiểu trước khi so sánh. (VD: `1 == '1'` -> `true`).
+- **`===`**: Toán tử so sánh bằng nghiêm ngặt. Kiểm tra cả giá trị và kiểu dữ liệu. (VD: `1 === '1'` -> `false`). Luôn luôn khuyên dùng `===`.
+
+### Q6. Các Falsy Values trong JavaScript là gì?
+**Trả lời:**
+Falsy values là những giá trị khi ép kiểu sang Boolean sẽ thành `false`. JS có đúng 6 giá trị:
+`false`, `0` (hoặc `-0`), `""` (chuỗi rỗng), `null`, `undefined`, `NaN`.
+Tất cả các giá trị còn lại (bao gồm mảng rỗng `[]`, object rỗng `{}`) đều là Truthy.
+
+### Q7. Tham trị (Pass by Value) và Tham chiếu (Pass by Reference) khác nhau thế nào?
+**Trả lời:**
+- **Tham trị (Primitives)**: Số, Chuỗi, Boolean. Khi gán biến này cho biến khác, JS tạo một bản sao độc lập. Sửa biến này không đổi biến kia.
+- **Tham chiếu (Objects, Arrays)**: Khi gán, JS chỉ copy "địa chỉ vùng nhớ". Nếu sửa property ở biến mới, biến gốc cũng bị thay đổi theo.
+
+### Q8. Nếu 2 key trùng nhau trong Object thì chuyện gì xảy ra?
+**Trả lời:**
+JavaScript sẽ không báo lỗi. Thay vào đó, giá trị của key được khai báo **sau cùng** sẽ ghi đè lên giá trị của key trước đó.
+Ví dụ: `const obj = { a: 1, a: 2 };` thì `obj.a` sẽ có giá trị là `2`.
+
+### Q9. Hoisting trong JavaScript là gì?
+**Trả lời:**
+Hoisting là cơ chế mà phần **khai báo** (biến, hàm) được đưa lên trên cùng của scope trước khi code thực thi.
+- `var` được hoisted và khởi tạo với giá trị `undefined`.
+- `let`/`const` được hoisted nhưng đưa vào vùng **TDZ (Temporal Dead Zone)**, nếu truy cập sớm sẽ báo lỗi `ReferenceError`.
 
 ---
 
 ## 🟡 Cấp độ 2: Middle (Trung cấp)
 *Cấp độ Middle yêu cầu hiểu rõ cách trình duyệt hoạt động, xử lý bất đồng bộ và tối ưu hóa UI.*
 
-### Q6. Trình duyệt hiển thị (render) trang web như thế nào? (Critical Rendering Path)
+### Q10. Trình duyệt hiển thị (render) trang web như thế nào?
 **Trả lời:**
-1. Trình duyệt tải xuống HTML và phân tích cú pháp để xây dựng **DOM Tree**.
-2. Tải CSS và phân tích cú pháp để xây dựng **CSSOM Tree**.
-3. Kết hợp DOM và CSSOM thành **Render Tree**.
-4. **Layout (Reflow)**: Tính toán kích thước và vị trí chính xác của từng phần tử.
-5. **Paint**: Vẽ các pixel thực tế lên màn hình (Text, color, image, shadows).
-6. **Composite**: Gộp các layer lại với nhau (đặc biệt quan trọng khi có animations hoặc z-index).
+Tải HTML -> Tạo DOM Tree. Tải CSS -> Tạo CSSOM Tree. Kết hợp DOM + CSSOM -> Tạo Render Tree. Sau đó thực hiện **Layout** (tính toán vị trí) -> **Paint** (vẽ pixel) -> **Composite** (ghép layer).
 
-### Q7. Độ đặc hiệu của CSS (CSS Specificity) hoạt động như thế nào?
+### Q11. Độ đặc hiệu của CSS (CSS Specificity) hoạt động như thế nào?
 **Trả lời:**
-Quy tắc ưu tiên (từ cao xuống thấp):
-1. `!important` (Ghi đè tất cả).
-2. Inline Styles (VD: `style="color: red;"`).
-3. ID Selectors (`#header`).
-4. Class, Pseudo-classes, Attributes (`.button`, `:hover`, `[type="text"]`).
-5. Elements, Pseudo-elements (`div`, `h1`, `::before`).
+Quy tắc ưu tiên (từ cao xuống thấp): `!important` > Inline Styles > ID (`#`) > Class (`.`), Pseudo-classes > Elements (`div`, `p`).
 
-### Q8. Vòng lặp sự kiện (Event Loop) trong JavaScript hoạt động ra sao?
+### Q12. Vòng lặp sự kiện (Event Loop) hoạt động ra sao?
 **Trả lời:**
-JS là ngôn ngữ đơn luồng (single-threaded). Nó dùng Event Loop để xử lý bất đồng bộ:
-1. **Call Stack**: Thực thi code đồng bộ.
-2. **Web APIs**: Trình duyệt xử lý các tác vụ bất đồng bộ (setTimeout, HTTP Request, DOM events).
-3. **Task Queue / Microtask Queue**: Khi Web API hoàn thành, callback được đẩy vào Queue (Microtask như Promise có mức ưu tiên cao hơn Macrotask như setTimeout).
-4. **Event Loop**: Theo dõi Call Stack, khi Call Stack rỗng, nó sẽ đẩy callback từ Queue lên Call Stack để thực thi.
+JS là ngôn ngữ đơn luồng. Event Loop liên tục kiểm tra Call Stack. Nếu Call Stack rỗng, nó sẽ bốc các callback đã xong từ Task Queue (và Microtask Queue) đưa vào Call Stack để chạy tiếp. (Microtask như Promise có quyền ưu tiên cao hơn Macrotask như setTimeout).
 
-### Q9. Ủy quyền sự kiện (Event Delegation) là gì?
+### Q13. Closure trong JavaScript là gì?
 **Trả lời:**
-Thay vì gắn `addEventListener` cho từng phần tử con (VD: 100 thẻ `<li>`), ta gắn một listener duy nhất vào thẻ cha (`<ul>`). Nhờ cơ chế **Event Bubbling** (sự kiện nổi bọt từ con lên cha), thẻ cha có thể bắt được sự kiện và dùng `event.target` để biết chính xác thẻ con nào được click. Giúp tiết kiệm bộ nhớ và dễ dàng quản lý DOM động.
+Closure là một hàm có thể "ghi nhớ" và truy cập tới các biến nằm trong scope cha của nó, ngay cả khi hàm cha đã chạy xong và bị hủy khỏi Call Stack. Thường dùng để tạo private variables hoặc currying.
 
-### Q10. Virtual DOM là gì và lợi ích của nó? (React/Vue)
+### Q14. Từ khóa `this` trong Arrow Function khác gì Regular Function?
 **Trả lời:**
-- Virtual DOM là một bản sao nhẹ của DOM thật được lưu trong bộ nhớ (memory).
-- Khi trạng thái (state) thay đổi, framework tạo ra một Virtual DOM mới và so sánh (diffing) với Virtual DOM cũ.
-- Nó tính toán ra sự khác biệt nhỏ nhất (patches) và chỉ cập nhật đúng phần thay đổi đó lên DOM thật.
-- **Lợi ích**: Tránh việc phải render lại toàn bộ trang, tối ưu hiệu suất thao tác DOM (vốn rất chậm).
+- **Regular Function**: `this` phụ thuộc vào **object gọi nó** tại thời điểm chạy (dynamic binding).
+- **Arrow Function**: Không có `this` riêng. Nó kế thừa `this` từ scope bọc bên ngoài tại **thời điểm định nghĩa** (lexical binding). Bạn không thể thay đổi `this` của Arrow Function bằng `.bind()`, `.call()`.
+
+### Q15. So sánh `let` và `var` trong vòng lặp `for` có chứa `setTimeout`?
+**Trả lời:**
+- Dùng `var`: Biến `var` có function-scope. Vòng lặp chạy rất nhanh và tăng biến `i` lên cuối cùng. Khi `setTimeout` chạy, nó sẽ in ra số cuối cùng liên tục.
+- Dùng `let`: `let` có block-scope. Ở mỗi lần lặp, một scope mới chứa giá trị `i` riêng biệt được tạo ra. `setTimeout` sẽ in ra các số tăng dần chính xác.
+
+### Q16. Virtual DOM là gì và lợi ích của nó?
+**Trả lời:**
+Bản sao trong bộ nhớ (memory) của DOM thật. Khi state đổi, React/Vue tạo Virtual DOM mới, so sánh (diffing) với bản cũ, tìm ra chỗ thay đổi nhỏ nhất và chỉ cập nhật chỗ đó lên DOM thật (giúp tối ưu hiệu suất so với cập nhật toàn bộ DOM).
 
 ---
 
 ## 🔴 Cấp độ 3: Senior (Chuyên sâu / System Design)
 *Ở cấp độ này, ứng viên cần có tầm nhìn về kiến trúc ứng dụng, bảo mật và hiệu suất toàn diện.*
 
-### Q11. Quản lý trạng thái (State Management) trong SPA phức tạp như thế nào?
+### Q17. Quản lý trạng thái (State Management) trong SPA phức tạp như thế nào?
 **Trả lời:**
-Khi ứng dụng phình to, việc truyền dữ liệu qua lại giữa các Component bằng Props/Events (Prop Drilling) trở nên bất khả thi. Senior cần hiểu các mô hình:
-- **Global Store**: Sử dụng Redux, NgRx hoặc Vuex/Pinia để tạo một kho lưu trữ tập trung.
-- **Signals / Reactive State**: Xu hướng mới (như Angular Signals, SolidJS) sử dụng trạng thái phản ứng trực tiếp không cần qua Virtual DOM diffing.
-- **Server State vs Client State**: Tách biệt dữ liệu gọi từ API (quản lý bằng React Query/TanStack Query) và dữ liệu UI cục bộ.
+Khi ứng dụng lớn, Senior cần hiểu tách biệt Server State (Data từ API - quản lý bằng React Query/NgRx) và Client State (UI state - Redux, Signals). Tận dụng tính năng Reactive State trực tiếp để giảm re-render.
 
-### Q12. SSR (Server-Side Rendering) vs CSR (Client-Side Rendering) vs SSG (Static Site Generation)?
+### Q18. SSR (Server-Side Rendering) vs CSR (Client-Side Rendering) vs SSG?
 **Trả lời:**
-- **CSR**: Tải một file HTML rỗng và file JS lớn. JS sẽ chạy và render giao diện. (Tốt cho ứng dụng tương tác cao, kém SEO).
-- **SSR**: Server render sẵn HTML đầy đủ và gửi về Client. (Tốt cho SEO, FCP nhanh, nhưng tốn tài nguyên Server).
-- **SSG**: Build HTML sẵn tại thời điểm lúc deploy. Trình duyệt chỉ việc tải HTML tĩnh. (Nhanh nhất, cực tốt cho Blog, Docs).
+- **CSR**: Client tải JS về tự render UI. Chậm hiển thị nội dung lần đầu, kém SEO.
+- **SSR**: Server render sẵn HTML đầy đủ gửi về. Tốt cho SEO, FCP nhanh, nhưng nặng Server.
+- **SSG**: Pre-build HTML tĩnh lúc deploy. Cực nhanh, phù hợp làm Blog/Docs.
 
-### Q13. Web Vitals (Core Web Vitals) là gì? Làm sao để cải thiện?
+### Q19. Core Web Vitals là gì? Làm sao cải thiện?
 **Trả lời:**
-Bộ 3 chỉ số quan trọng nhất của Google đo lường UX:
-1. **LCP (Largest Contentful Paint)**: Thời gian tải nội dung lớn nhất. Tối ưu: Nén hình ảnh, dùng WebP, Preload ảnh LCP, SSR.
-2. **FID (First Input Delay) / INP (Interaction to Next Paint)**: Độ trễ khi người dùng tương tác. Tối ưu: Dùng Web Workers, chia nhỏ file JS (Code Splitting), Tree Shaking để giảm gánh nặng Main Thread.
-3. **CLS (Cumulative Layout Shift)**: Mức độ giật/nhảy nội dung. Tối ưu: Set thuộc tính `width`/`height` cố định cho ảnh/video, không chèn nội dung động lên trên nội dung đã render.
+- **LCP (Largest Contentful Paint)**: Tối ưu ảnh, Preload, dùng WebP.
+- **INP (Interaction to Next Paint)**: Tránh block Main Thread, Tree Shaking, Code Splitting.
+- **CLS (Cumulative Layout Shift)**: Set sẵn `width/height` cho ảnh, không chèn banner đột ngột đẩy nội dung xuống.
 
-### Q14. Chính sách bảo mật nội dung (CSP) & Chống XSS?
+### Q20. CSP (Content Security Policy) chống XSS như thế nào?
 **Trả lời:**
-- **CSP (Content Security Policy)**: Là một HTTP Header giúp ngăn chặn Cross-Site Scripting (XSS). Nó quy định trình duyệt chỉ được phép tải scripts/images từ các domain được cấp phép (whitelist).
-- Để chống XSS, Senior luôn phải "sanitize" (làm sạch) dữ liệu đầu vào của người dùng trước khi innerHTML, sử dụng các framework hiện đại (React/Angular) vì chúng mặc định escape data.
+CSP là HTTP Header yêu cầu trình duyệt chỉ load tài nguyên (script, ảnh) từ danh sách miền cho phép (whitelist). Ngăn chặn mã độc XSS thực thi từ các script bên thứ ba không tin cậy.
 
-### Q15. Kiến trúc Micro-frontends là gì? Khi nào nên áp dụng?
+### Q21. Kiến trúc Micro-frontends là gì?
 **Trả lời:**
-- **Khái niệm**: Tương tự Micro-services ở backend, Micro-frontends chia một Frontend App khổng lồ thành các ứng dụng nhỏ hơn (Ví dụ: Team A làm phần Giỏ hàng bằng React, Team B làm phần Thanh toán bằng Angular). Chúng được ghép lại thành một trang thống nhất lúc runtime thông qua Webpack Module Federation hoặc Iframes.
-- **Khi nào áp dụng**: Dự án cực kỳ lớn (Enterprise), nhiều teams làm việc song song, muốn triển khai (deploy) các module một cách độc lập mà không ảnh hưởng toàn hệ thống.
+Chia nhỏ một ứng dụng Frontend khổng lồ thành nhiều project nhỏ (có thể code bằng các framework khác nhau). Chúng được nhúng lại với nhau lúc runtime bằng Webpack Module Federation, giúp các team deploy độc lập.
