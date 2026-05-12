@@ -200,3 +200,28 @@ export class ReactiveForm {
 ❖ **Sử dụng Reactive Forms khi:**
 - Biểu mẫu lớn, phức tạp và có tính động cao.
 - Ví dụ: Các form đăng ký nhiều bước (multi-step signup forms), form có cấu trúc phức tạp, hoặc form có thể thêm/bớt các trường động (dynamic fields).
+
+---
+
+### Q12. Tại sao lại cần sử dụng `afterNextRender` khi thao tác với Form và LocalStorage?
+
+**Trả lời:**
+Khi bạn làm việc với các ứng dụng Angular có bật **Server-Side Rendering (SSR)** hoặc **Prerendering (SSG)**, mã nguồn của bạn ban đầu sẽ được chạy trên môi trường Server (Node.js) chứ không phải trình duyệt (Browser).
+
+Môi trường Node.js **không có** đối tượng `window` hay `document` (ví dụ: `window.localStorage` không tồn tại trên server và sẽ ném ra lỗi làm crash ứng dụng).
+
+❖ Hàm `afterNextRender()` trong Angular đảm bảo rằng đoạn code bên trong nó **chỉ được thực thi ở phía Browser (Client-side)** và **chỉ chạy sau khi quá trình render kết thúc**. Điều này giúp ứng dụng an toàn truy cập vào `window.localStorage` để lưu trữ dữ liệu form đang nhập dở (như email) mà không gây lỗi trên server.
+
+---
+
+### Q13. Vai trò của `destroyRef.onDestroy` trong đoạn code lắng nghe Form changes là gì?
+
+**Trả lời:**
+Khi bạn `.subscribe()` vào một Observable (ví dụ: `this.form().valueChanges`), một luồng dữ liệu (stream) được mở ra và nó sẽ liên tục lắng nghe. 
+
+Nếu bạn chuyển sang một trang khác, Component chứa form bị hủy đi (destroyed), nhưng cái Subscription này vẫn nằm lại trong bộ nhớ vì không ai dọn dẹp nó. Lâu dần sẽ dẫn đến tình trạng rò rỉ bộ nhớ (**Memory Leak**).
+
+❖ **Tại sao lại dùng `destroyRef.onDestroy`?**
+- `DestroyRef` (xuất hiện từ Angular 16) là một cách hiện đại để đăng ký một hàm callback dọn dẹp khi Component bị hủy.
+- Ở đây, `this.destroyRef.onDestroy(() => subscription?.unsubscribe())` đảm bảo rằng ngay khi Component chết đi, chúng ta sẽ **hủy bỏ lắng nghe (unsubscribe)** Form `valueChanges`.
+- Cú pháp này vô cùng linh hoạt vì nó có thể được viết ngay bên trong `constructor` hoặc bất kỳ hàm nào mà không cần phải `implements OnDestroy` hay tạo hàm `ngOnDestroy()` truyền thống trên class.
