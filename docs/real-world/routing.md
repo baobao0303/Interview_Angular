@@ -1,38 +1,82 @@
 # Routing & Navigation trong Angular
 
-Dưới đây là các khái niệm và câu hỏi phỏng vấn thường gặp về Routing trong Angular, được trích xuất từ tài liệu Bootcamp:
+Dưới đây là các câu hỏi phỏng vấn thực tế và cấu hình (implementation) về Routing trong Angular:
 
-### 1. Angular Routing là gì?
+### Q. What is Angular Routing?
+❖ **Angular Routing** là một tính năng trong Angular cho phép điều hướng (navigation) giữa các views hoặc components khác nhau bằng cách sử dụng các đường dẫn URL mà không cần phải tải lại toàn bộ trang web (without reloading the entire web page).
 
-**Trả lời:**
-Routing là một tính năng trong Angular cho phép điều hướng (navigate) giữa các views hoặc components khác nhau bằng cách sử dụng các đường dẫn URL, mà không cần phải tải lại (reload) toàn bộ trang web (phù hợp với kiến trúc Single Page Application).
+---
 
-### 2. Vai trò của `provideRouter` là gì?
+### Q. How do we implement Routing? What is the role of `provideRouter`?
+❖ `provideRouter` là một hàm được sử dụng trong Angular để kích hoạt tính năng routing bằng cách cung cấp các cấu hình route ngay trong quá trình khởi động ứng dụng (application startup).
 
-**Trả lời:**
-`provideRouter` là một hàm được sử dụng trong Angular để kích hoạt tính năng routing bằng cách cung cấp các cấu hình route ngay trong quá trình khởi động ứng dụng. (Thường được đăng ký tại file `app.config.ts` đối với Standalone Architecture).
+```typescript
+// app.config.ts
+export const appConfig: ApplicationConfig = {
+  providers: [
+    provideBrowserGlobalErrorListeners(),
+    provideZoneChangeDetection({ eventCoalescing: true }),
+    provideRouter(routes)
+  ]
+};
+```
 
-### 3. File `app.routes.ts` dùng để làm gì?
+---
 
-**Trả lời:**
-`app.routes.ts` là file cấu hình routing chính. Nó chứa mảng `Routes`, trong đó mỗi object sẽ định nghĩa sự ánh xạ (mapping) giữa một đường dẫn URL (path) và component tương ứng sẽ được tải. Nó cũng được dùng để thiết lập **default route** bằng thuộc tính `redirectTo`.
+### Q. What is the role of `app.routes.ts` in routing implementation?
+❖ **Routes Array** là một mảng cấu hình của Angular, nơi mỗi đối tượng (route object) sẽ định nghĩa một đường dẫn URL (path) và component tương ứng sẽ được load cho đường dẫn đó.
 
-### 4. Phân biệt `routerLink` và `router-outlet`?
+❖ **`app.routes.ts`** là file cấu hình routing chính trong Angular. Nó chứa mảng `Routes` dùng để ánh xạ (mapping) các đường dẫn URL tới component tương ứng.
 
-**Trả lời:**
+```typescript
+// app.routes.ts
+import { Routes } from '@angular/router';
+import { HomeComponent } from './home/home.component';
+import { AboutComponent } from './about/about.component';
 
-- **`router-outlet`**: Là một directive đóng vai trò như một vùng chứa (placeholder). Khi bạn chuyển đổi URL, nội dung của component tương ứng sẽ được render tại vị trí đặt `router-outlet`.
-- **`routerLink`**: Là một directive dùng thay cho thuộc tính `href` trong thẻ `<a>`. Nó giúp điều hướng sang các component khác bằng URL mà không làm mới (refresh) lại toàn bộ trang.
+export const routes: Routes = [
+  { path: 'home', component: HomeComponent },
+  { path: 'about', component: AboutComponent },
+  
+  // default route
+  { path: '', redirectTo: 'home', pathMatch: 'full' }
+];
+```
 
-### 5. Thuộc tính `routerLinkActive` có tác dụng gì?
+❖ **Default route**: Được sử dụng để tự động chuyển hướng người dùng tới một component cụ thể khi không có đường dẫn URL nào được cung cấp.
 
-**Trả lời:**
-`routerLinkActive` là một directive tự động thêm một class CSS (ví dụ: `active`) vào thẻ link hiện tại nếu URL đang trùng khớp với đường dẫn mà thẻ link đó trỏ đến. Rất hữu ích trong việc bôi đậm hoặc làm nổi bật thanh menu đang được chọn.
+---
 
-### 6. Wildcard Route (`**`) là gì?
+### Q. What is the role of `routerLink` and `router-outlet` in routing implementation?
+❖ **`routerLink`**: Là một directive của Angular dùng để điều hướng giữa các component bằng URL mà không làm mới lại toàn bộ trang.
+❖ **`router-outlet`**: Là một directive đóng vai trò như một placeholder (vùng chứa) hiển thị các component được định tuyến dựa trên URL hiện tại.
 
-**Trả lời:**
+```html
+<!-- app.component.html -->
+<nav>
+  <a routerLink="/home">Home</a> |
+  <a routerLink="/about">About</a>
+</nav>
 
-- **Wildcard Route** được dùng để xử lý các đường dẫn URL không hợp lệ hoặc không có trong cấu hình.
-- Thường được sử dụng để điều hướng người dùng tới trang lỗi **404 Page Not Found** hoặc trang chủ.
-- **Lưu ý quan trọng**: Phải luôn đặt Wildcard Route ở **cuối cùng** của mảng `routes` vì Angular sẽ kiểm tra đường dẫn theo thứ tự từ trên xuống dưới.
+<!-- Nơi component tương ứng với URL sẽ được hiển thị -->
+<router-outlet></router-outlet>
+```
+
+---
+
+### Q. Summarize Angular Routing Working?
+Quá trình hoạt động của Angular Routing tóm tắt như sau:
+1. Người dùng bấm vào thẻ `<a>` có chứa `routerLink="/home"`.
+2. Trình duyệt thay đổi thanh URL thành `/home` nhưng ngăn chặn hành vi load lại trang mặc định của thẻ `<a>`.
+3. Router của Angular bắt được sự thay đổi URL này, dò tìm trong mảng `Routes` (được cấu hình ở `app.routes.ts`).
+4. Khi tìm thấy `{ path: 'home', component: HomeComponent }`, Router sẽ khởi tạo `HomeComponent`.
+5. Sau đó, nó chèn nội dung của `HomeComponent` vào đúng vị trí thẻ `<router-outlet>` trên màn hình.
+
+---
+
+### Q. Thuộc tính `routerLinkActive` có tác dụng gì? *(Bổ sung)*
+❖ `routerLinkActive` là một directive tự động thêm một class CSS (ví dụ: `active`) vào thẻ link hiện tại nếu URL đang trùng khớp với đường dẫn mà thẻ link đó trỏ đến. Rất hữu ích trong việc làm nổi bật thanh menu đang được chọn.
+
+### Q. Wildcard Route (`**`) là gì? *(Bổ sung)*
+❖ **Wildcard Route** được dùng để xử lý các đường dẫn URL không hợp lệ hoặc không có trong cấu hình, thường để điều hướng người dùng tới trang **404 Page Not Found**. 
+*Lưu ý: Phải luôn đặt Wildcard Route ở cuối cùng của mảng `routes` vì Angular sẽ kiểm tra đường dẫn từ trên xuống dưới.*
