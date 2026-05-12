@@ -39,3 +39,69 @@ Có 4 modifiers chính điều khiển cách Angular tìm kiếm một dependenc
 constructor(@Optional() @Self() private localService: MyService) {}
 ```
 > **Ý nghĩa:** "Hãy tìm MyService ở chính Component này (không lên cha tìm). Nếu không có thì cũng không sao, hãy gán nó bằng `null` chứ đừng báo lỗi."
+
+---
+
+### Q3. Làm thế nào để Inject một dependency không phải là Class (ví dụ: Interface, String, Object, Function) trong TypeScript?
+
+**Trả lời:**
+Trong Angular, chúng ta thường dùng chính **Class** làm token (định danh) để inject (ví dụ: `constructor(private auth: AuthService)`). Tuy nhiên, **Interface** trong TypeScript lại biến mất (compile away) khi biên dịch sang JavaScript, do đó không thể dùng Interface (hoặc String, Object thuần) làm Token để Angular nhận diện lúc runtime (khi ứng dụng chạy).
+
+Để giải quyết vấn đề này, Angular cung cấp **`InjectionToken`**.
+
+**Cách triển khai (Implement):**
+
+**Bước 1: Tạo một InjectionToken**
+Định nghĩa một token với kiểu dữ liệu mong muốn (ví dụ: Interface `AppConfig`).
+
+```typescript
+import { InjectionToken } from '@angular/core';
+
+export interface AppConfig {
+  apiUrl: string;
+  retryCount: number;
+}
+
+// Tạo Token để đại diện cho Interface AppConfig
+export const APP_CONFIG = new InjectionToken<AppConfig>('app.config');
+```
+
+**Bước 2: Cung cấp (Provide) giá trị cho Token**
+Sử dụng `useValue` (hoặc `useFactory`) để gán giá trị thực tế cho token đó trong phần `providers` của Component hoặc Module (hoặc `app.config.ts`).
+
+```typescript
+import { ApplicationConfig } from '@angular/core';
+import { APP_CONFIG } from './app-config.token';
+
+const myAppConfig = {
+  apiUrl: 'https://api.example.com',
+  retryCount: 3
+};
+
+export const appConfig: ApplicationConfig = {
+  providers: [
+    { provide: APP_CONFIG, useValue: myAppConfig }
+  ]
+};
+```
+
+**Bước 3: Inject vào Component/Service**
+Sử dụng hàm `inject()` (Angular 14+) hoặc decorator `@Inject()` (truyền thống) để lấy giá trị ra sử dụng.
+
+```typescript
+import { Component, Inject, inject } from '@angular/core';
+import { APP_CONFIG, AppConfig } from './app-config.token';
+
+@Component({
+  // ...
+})
+export class MyComponent {
+  // Cách 1: Dùng hàm inject() (Khuyên dùng từ Angular 14+ / Standalone)
+  private config = inject(APP_CONFIG);
+
+  // Cách 2: Dùng decorator @Inject() trong constructor (Cách truyền thống)
+  constructor(@Inject(APP_CONFIG) private configOld: AppConfig) {
+    console.log(this.config.apiUrl); // Output: https://api.example.com
+  }
+}
+```
