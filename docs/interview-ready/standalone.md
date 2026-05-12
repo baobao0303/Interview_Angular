@@ -64,3 +64,34 @@ Kể từ Angular 20, cấu trúc thư mục của một dự án Angular mới 
 4. **Rút gọn tên file Component gốc:** Các file `app.component.ts`, `app.component.html`, `app.component.css` thường được Angular CLI rút gọn tên lại thành **`app.ts`**, **`app.html`**, **`app.css`**.
 
 ![Folder Structure Angular 20](./images/folder-structure-angular-20.png)
+
+### Q6. Vai trò của file `main.ts` thay đổi như thế nào sau Angular 20?
+
+**Trả lời:**
+File `main.ts` vẫn đóng vai trò là "cửa ngõ" (entry point) nơi ứng dụng bắt đầu chạy, nhưng phương thức khởi động đã thay đổi hoàn toàn:
+
+- **Trước Angular 20 (Kiến trúc Module-Based):** 
+  `main.ts` sử dụng hàm `platformBrowserDynamic().bootstrapModule()` để khởi chạy một Module gốc (thường là `AppModule`).
+  
+  ```typescript
+  // main.ts before Angular 20
+  import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+  import { AppModule } from './app/app.module';
+
+  platformBrowserDynamic()
+    .bootstrapModule(AppModule)
+    .catch(err => console.error(err));
+  ```
+
+- **Từ Angular 20 (Kiến trúc Standalone):** 
+  `main.ts` gọi trực tiếp hàm `bootstrapApplication()` để khởi chạy thẳng một Standalone Component (ví dụ `App` hoặc `AppComponent`), đồng thời truyền vào các cấu hình hệ thống (như router, providers) từ `appConfig`.
+
+  ```typescript
+  // main.ts Angular 20 Onwards
+  import { bootstrapApplication } from '@angular/platform-browser';
+  import { App } from './app/app.component';
+  // import { appConfig } from './app/app.config';
+
+  bootstrapApplication(App, appConfig)
+    .catch((err) => console.error(err));
+  ```
