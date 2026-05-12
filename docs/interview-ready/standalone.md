@@ -13,3 +13,10 @@
   - **Standalone:** Loại bỏ sự phụ thuộc vào `NgModule` (giảm boilerplate code). Component có thể tự đứng vững, tự import trực tiếp những gì nó cần (các component khác, pipes, directives, services), giúp cấu trúc dự án đơn giản, nhẹ nhàng và dễ tiếp cận hơn.
 
     ![Standalone Architecture](./images/Standalone%20Architecture.png)
+
+### Q2. Những ưu điểm (Advantages) của Standalone Architecture là gì?
+
+**Trả lời:**
+1. **Less boilerplate (Giảm thiểu mã thừa):** Không còn cần phải viết các file cấu hình `NgModule` dài dòng phức tạp.
+2. **Simpler structure (Cấu trúc đơn giản hơn):** Không cần tạo thêm file module phụ trợ, dự án trở nên rất gọn gàng.
+3. **Faster development (Phát triển nhanh hơn):** Viết code ít hơn, tập trung vào logic component thay vì cấu hình, giúp tăng tốc quá trình làm việc.
