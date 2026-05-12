@@ -12,7 +12,7 @@
 
 - **Signal** là một giá trị mang tính phản ứng (reactive value). Điểm mạnh nhất của Signal là khi giá trị của nó thay đổi, nó sẽ **tự động chỉ cập nhật chính xác khu vực UI** đang sử dụng giá trị đó (surgical updates), giúp tối ưu hóa hiệu năng một cách triệt để.
 
-![Implements Signal](./images/Implements Signal.png)
+![Signal](./images/Signals.png)
 
 ### Q2. Cách triển khai (Implement) Signals trong Angular như thế nào?
 
@@ -48,6 +48,7 @@ export class MyComponent {
 
 **3. Cập nhật giá trị của Signal:**
 Signals cung cấp sẵn các phương thức để thay đổi trạng thái của nó một cách an toàn:
+
 - **`set()`**: Dùng để gán một giá trị mới hoàn toàn.
 - **`update()`** *(Bổ sung)*: Dùng để tính toán giá trị mới dựa trên giá trị hiện tại.
 
@@ -66,3 +67,40 @@ export class MyComponent {
 ```
 
 > **Tóm lại:** Signal là một giá trị reactive, nó theo dõi xem ai đang "đọc" nó. Khi bạn gọi `set()` hoặc `update()`, Signal sẽ thông báo chính xác cho phần UI đó (ở đây là thẻ `<p>`) tự động render lại, bỏ qua hoàn toàn các nơi khác không liên quan.
+
+### Q3. Cách triển khai Component theo Change Detection truyền thống (không dùng Signals) như thế nào?
+
+**Trả lời:**
+Trước khi có Signals, Angular mặc định sử dụng cơ chế Change Detection thông qua `Zone.js` để tự động phát hiện các sự kiện (click, HTTP request, setTimeout...) và cập nhật lại giao diện.
+
+Cách triển khai dựa vào việc khai báo và gán giá trị cho các thuộc tính (properties) thông thường:
+
+```typescript
+// withoutsignal.ts
+import { Component } from '@angular/core';
+
+@Component({
+  // ...
+})
+export class MyComponent {
+  count = 0;
+  
+  // Normal increment
+  increment() {
+    this.count++;
+  }
+}
+```
+
+```html
+<!-- withoutsignal.html -->
+<h3>Change Detection Example</h3>
+<h3>Counter Example</h3>
+
+<button (click)="increment()">Increment</button>
+<p>{{ count }}</p>
+```
+
+> **So sánh hiệu năng:** Trong cách tiếp cận này, mỗi khi bạn nhấn nút `Increment`, quá trình Change Detection sẽ diễn ra. Nó sẽ đi kiểm tra **rất nhiều bindings** trên toàn bộ component tree (kể cả những nơi không hề thay đổi) để đảm bảo dữ liệu được đồng bộ với UI. Điều này cồng kềnh và tốn kém hơn nhiều so với việc chỉ cập nhật đúng 1 chỗ như Signals.
+
+![Implements Signals](./images/Implement_Signals.png)
