@@ -1,0 +1,22 @@
+<div style="padding: 20px; border: 1px solid #ccc; max-width: 400px; margin-top: 20px;">
+  <h2>RxJS & Signals Demo</h2>
+  
+  <div style="margin-bottom: 20px;">
+    <h3>Interval with map()</h3>
+    <p>Timer value (val * 2): <strong>{{ timerValue }}</strong></p>
+  </div>
+
+  <div style="margin-bottom: 20px;">
+    <h3>Signals & Effect</h3>
+    <p>Click count (Signal): <strong>{{ clickCount() }}</strong></p>
+    <button (click)="incrementClick()" style="padding: 5px 10px;">Increment</button>
+  </div>
+
+  <div>
+    <h3>BehaviorSubject</h3>
+    <button (click)="addMessage()" style="padding: 5px 10px;">Add Message</button>
+    <ul>
+      <li *ngFor="let msg of messages$ | async">{{ msg }}</li>
+    </ul>
+  </div>
+</div>
