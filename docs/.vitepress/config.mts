@@ -11,9 +11,22 @@ export default defineConfig({
     ],
     sidebar: [
       {
-        text: 'Nội dung',
+        text: 'Foundation',
         items: [
           { text: 'Trang chủ', link: '/' },
+          { text: 'Cơ bản', link: '/foundation/' }
+        ]
+      },
+      {
+        text: 'Real World',
+        items: [
+          { text: 'Thực tế', link: '/real-world/' }
+        ]
+      },
+      {
+        text: 'Interview Ready',
+        items: [
+          { text: 'Chuẩn bị phỏng vấn', link: '/interview-ready/' },
           { text: 'Câu hỏi & Giải đáp', link: '/questions/' }
         ]
       }
