@@ -7,10 +7,14 @@
 *(Bạn có thể bắt đầu thêm nội dung các câu hỏi của mình tại đây)*
 
 ### Q1. What is Angular?
-**Trả lời:** 
-Angular là một open-source front-end web framework dựa trên kiến trúc component (component-based), được phát triển và bảo trì bởi Google. Nó được thiết kế để xây dựng các ứng dụng web một trang (Single-Page Applications - SPAs) có khả năng mở rộng cao, sử dụng HTML, CSS và TypeScript.
+
+**Trả lời:**
+
+- Angular is a component-based front-end framework used to build dynamic single-page web applications (SPAs) using TypeScript.
+-> dịch: Angular là một framework front-end hướng component, được sử dụng để xây dựng các ứng dụng web một trang động (SPAs) bằng TypeScript.
 
 **Các đặc điểm chính của Angular:**
+
 1. **Component-based architecture:** Ứng dụng được chia nhỏ thành các component độc lập, dễ dàng tái sử dụng và bảo trì.
 2. **TypeScript:** Angular sử dụng TypeScript làm ngôn ngữ mặc định, cung cấp strict typing giúp bắt lỗi ngay trong quá trình phát triển và hỗ trợ OOP tốt.
 3. **Dependency Injection (DI):** Một pattern cốt lõi giúp Angular quản lý và phân phối hiệu quả các service/dependency cho các component, giúp code loosely coupled.

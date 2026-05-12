@@ -1,0 +1,3 @@
+# Standalone Architecture
+
+Nội dung đang cập nhật...

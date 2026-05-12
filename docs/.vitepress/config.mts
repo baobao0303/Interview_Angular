@@ -13,20 +13,46 @@ export default defineConfig({
       {
         text: 'Foundation',
         items: [
-          { text: 'Trang chủ', link: '/' },
-          { text: 'Cơ bản', link: '/foundation/' }
+          {
+            text: 'Angular Fundamentals',
+            collapsed: false,
+            items: [
+              { text: 'Giới thiệu', link: '/foundation/' },
+              { text: 'Components & Templates', link: '/foundation/components' },
+              { text: 'Directives & Pipes', link: '/foundation/directives' },
+              { text: 'Dependency Injection', link: '/foundation/dependency-injection' }
+            ]
+          },
         ]
       },
       {
         text: 'Real World',
         items: [
-          { text: 'Thực tế', link: '/real-world/' }
+          {
+            text: 'Ứng dụng thực tế',
+            collapsed: false,
+            items: [
+              { text: 'Tổng quan', link: '/real-world/' },
+              { text: 'Routing & Navigation', link: '/real-world/routing' },
+              { text: 'Forms (Template/Reactive)', link: '/real-world/forms' },
+              { text: 'HTTP Client & RxJS', link: '/real-world/http-rxjs' }
+            ]
+          }
         ]
       },
       {
         text: 'Interview Ready',
         items: [
-          { text: 'Chuẩn bị phỏng vấn', link: '/interview-ready/' },
+          {
+            text: 'Kiến thức nâng cao',
+            collapsed: false,
+            items: [
+              { text: 'Tổng quan', link: '/interview-ready/' },
+              { text: 'Change Detection', link: '/interview-ready/change-detection' },
+              { text: 'Signals', link: '/interview-ready/signals' },
+              { text: 'Standalone Architecture', link: '/interview-ready/standalone' }
+            ]
+          },
           { text: 'Câu hỏi & Giải đáp', link: '/questions/' }
         ]
       }

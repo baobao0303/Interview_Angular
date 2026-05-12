@@ -42,3 +42,4 @@ testem.log
 Thumbs.db
 docs/.vitepress/dist
 docs/.vitepress/cache
+*.pdf

@@ -36,6 +36,8 @@
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
+    "pdf-parse": "^2.4.5",
+    "pdf2json": "^4.0.3",
     "typescript": "~5.4.2",
     "vitepress": "^1.6.4",
     "vue": "^3.5.34"
