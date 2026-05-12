@@ -31,7 +31,7 @@ Một số ví dụ phổ biến bao gồm:
 - Hàm `bootstrapApplication()` dùng để khởi chạy ứng dụng gốc (thay thế cho `bootstrapModule`).
 - Hàm `provideRouter()` dùng để thiết lập và khởi tạo routing ở cấp độ ứng dụng.
 
-![Standalone APIs](./images/Standalone%20APIs.png)
+
 
 ### Q4. Quá trình khởi chạy ứng dụng (Loading process) thay đổi ra sao trước và sau Angular 20?
 
