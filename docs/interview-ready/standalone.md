@@ -20,3 +20,13 @@
 1. **Less boilerplate (Giảm thiểu mã thừa):** Không còn cần phải viết các file cấu hình `NgModule` dài dòng phức tạp.
 2. **Simpler structure (Cấu trúc đơn giản hơn):** Không cần tạo thêm file module phụ trợ, dự án trở nên rất gọn gàng.
 3. **Faster development (Phát triển nhanh hơn):** Viết code ít hơn, tập trung vào logic component thay vì cấu hình, giúp tăng tốc quá trình làm việc.
+
+### Q3. Standalone APIs trong Angular là gì?
+
+**Trả lời:**
+Standalone APIs là tập hợp các API (các tính năng) được Angular cung cấp nhằm hỗ trợ xây dựng ứng dụng theo kiến trúc Standalone (hoàn toàn không sử dụng modules). 
+
+Một số ví dụ phổ biến bao gồm:
+- Khai báo `standalone: true` bên trong decorator `@Component`.
+- Hàm `bootstrapApplication()` dùng để khởi chạy ứng dụng gốc (thay thế cho `bootstrapModule`).
+- Hàm `provideRouter()` dùng để thiết lập và khởi tạo routing ở cấp độ ứng dụng.
