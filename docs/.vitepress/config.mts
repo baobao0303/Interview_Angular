@@ -54,7 +54,14 @@ export default defineConfig({
               { text: 'Standalone Architecture', link: '/interview-ready/standalone' }
             ]
           },
-          { text: 'Câu hỏi & Giải đáp', link: '/questions/' }
+          { 
+            text: 'Câu hỏi & Giải đáp', 
+            collapsed: false,
+            items: [
+              { text: 'Angular Foundation', link: '/questions/' },
+              { text: 'General Frontend', link: '/questions/frontend-general' }
+            ]
+          }
         ]
       }
     ],
