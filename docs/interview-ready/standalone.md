@@ -7,4 +7,9 @@
 
 - **Sự khác biệt so với Module-Based Architecture:**
   - **Module-Based:** Ứng dụng được cấu trúc xoay quanh các modules (`NgModule`). Các component không thể đứng một mình mà bắt buộc phải được khai báo (declare) và quản lý thông qua một module nào đó. Bạn không thể sử dụng component một cách trực tiếp nếu chưa import module chứa nó.
+  
+    ![Module base architecture](./images/Module%20base%20architecture.png)
+
   - **Standalone:** Loại bỏ sự phụ thuộc vào `NgModule` (giảm boilerplate code). Component có thể tự đứng vững, tự import trực tiếp những gì nó cần (các component khác, pipes, directives, services), giúp cấu trúc dự án đơn giản, nhẹ nhàng và dễ tiếp cận hơn.
+
+    ![Standalone Architecture](./images/Standalone%20Architecture.png)
