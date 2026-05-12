@@ -12,7 +12,7 @@
 
 - **Signal** là một giá trị mang tính phản ứng (reactive value). Điểm mạnh nhất của Signal là khi giá trị của nó thay đổi, nó sẽ **tự động chỉ cập nhật chính xác khu vực UI** đang sử dụng giá trị đó (surgical updates), giúp tối ưu hóa hiệu năng một cách triệt để.
 
-*(Minh họa: Trong ứng dụng đếm Counter, nút "Increment Normal" sẽ kích hoạt Change Detection quét toàn bộ trang, còn "Increment Signal" chỉ cập nhật duy nhất dòng text hiển thị số đếm của nó).*
+![Implements Signal](./images/Implements Signal.png)
 
 ### Q2. Cách triển khai (Implement) Signals trong Angular như thế nào?
 
