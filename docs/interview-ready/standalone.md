@@ -32,3 +32,23 @@ Một số ví dụ phổ biến bao gồm:
 - Hàm `provideRouter()` dùng để thiết lập và khởi tạo routing ở cấp độ ứng dụng.
 
 ![Standalone APIs](./images/Standalone%20APIs.png)
+
+### Q4. Quá trình khởi chạy ứng dụng (Loading process) thay đổi ra sao trước và sau Angular 20?
+
+**Trả lời:**
+Sự thay đổi lớn nhất chính là việc loại bỏ hoàn toàn `AppModule` trong quá trình khởi chạy:
+
+**1. Trước Angular 20 (Kiến trúc Module-Based):**
+- Trình duyệt tải file `index.html` (nơi chứa thẻ placeholder `<app-root>`).
+- Tải và thực thi file `main.ts` (hoặc `main.js`).
+- `main.ts` gọi hàm khởi động **`app.module.ts`** (`AppModule`).
+- `AppModule` tiếp tục khởi chạy component gốc là `app.component.ts`.
+- `app.component.ts` kết hợp với `app.component.html / .css` để render giao diện ra lại thẻ `<app-root>`.
+
+**2. Từ Angular 20 trở đi (Kiến trúc Standalone):**
+- Trình duyệt tải file `index.html` (chứa thẻ `<app-root>`).
+- Tải và thực thi file `main.ts`.
+- `main.ts` khởi động **trực tiếp component gốc `app.ts`** thông qua hàm `bootstrapApplication()`.
+- `app.ts` kết hợp với `app.html / app.css` để render giao diện ra thẳng thẻ `<app-root>` (bỏ qua hoàn toàn bước trung gian là Module).
+
+![Before vs After Angular 20](./images/before-vs-after-angular-20.png)
